@@ -5,7 +5,7 @@ var Comunicacion = db.define('comunicacions', {
 
     id_componente: { type: Sequelize.STRING, primaryKey: true, allowNull: false },
     comp_num_serie: { type: Sequelize.STRING, allowNull: true },
-    fk_id_servicio: { type: Sequelize.INTEGER, allowNull: false },
+    fk_id_elemento: { type: Sequelize.INTEGER, allowNull: false },
     comp_especificaciones: { type: Sequelize.STRING, allowNull: true },
     fk_id_proveedor: { type: Sequelize.INTEGER, allowNull: true },
     fk_id_encargado: { type: Sequelize.INTEGER, allowNull: true },
@@ -13,6 +13,8 @@ var Comunicacion = db.define('comunicacions', {
     comp_fecha_asignacion: { type: Sequelize.DATEONLY, allowNull: true },
     fk_id_area: { type: Sequelize.INTEGER, allowNull: false },
     comp_comentarios: { type: Sequelize.STRING, allowNull: true },
+    comp_status: { type: Sequelize.BOOLEAN, allowNull: true }
+
 }, {
     timestamps: false
 

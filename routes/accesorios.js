@@ -9,17 +9,21 @@ app.post('/', (req, res) => {
 
     var body = req.body;
 
+
     Accesorios.create({
-        id_accesorio: body.id,
+        id_accesorio: body.id_accesorio,
         acc_num_serie: body.acc_num_serie,
-        fk_id_servicio: body.fk_id_servicio,
+        fk_id_elemento: body.fk_id_servicio,
         acc_especificaciones: body.acc_especificaciones,
         fk_id_proveedor: body.fk_id_proveedor,
         fk_id_encargado: body.fk_id_encargado,
         acc_fecha_compra: body.acc_fecha_compra,
         acc_fecha_asignacion: body.acc_fecha_asignacion,
         fk_id_area: body.fk_id_area,
-        acc_comentarios: body.acc_comentarios
+        acc_comentarios: body.acc_comentarios,
+        acc_status: true
+
+
     }).then(resultado => {
         res.status(200).json({
             ok: true,
@@ -27,7 +31,7 @@ app.post('/', (req, res) => {
         })
 
     }).catch(err => {
-        return res.status(500).json({
+        res.status(500).json({
             ok: false,
             mensaje: 'Error al insertar el accesorio',
             err
@@ -55,13 +59,15 @@ app.get('/', (req, res) => {
         });
 });
 
+
+// Regresa un accesorio en base a su ID
 app.get('/:id', (req, res) => {
     var id = req.params.id;
-    Accesorios.findByPk(id).then(resultado => {
+    db.query("SP_GET_ACCESORIO " + id).then(resultado => {
 
         res.status(200).json({
             ok: true,
-            accesorio: resultado
+            accesorio: resultado[0][0]
         });
     }).catch(err => {
         return res.status(500).json({
@@ -112,8 +118,15 @@ app.put('/:id', (req, res) => {
 
     Accesorios.update({
             acc_num_serie: body.acc_num_serie,
+            fk_id_elemento: body.fk_id_servicio,
             acc_especificaciones: body.acc_especificaciones,
-            acc_comentarios: body.acc_comentarios
+            fk_id_proveedor: body.fk_id_proveedor,
+            fk_id_encargado: body.fk_id_encargado,
+            acc_fecha_compra: body.acc_fecha_compra,
+            acc_fecha_asignacion: body.acc_fecha_asignacion,
+            fk_id_area: body.fk_id_area,
+            acc_comentarios: body.acc_comentarios,
+            acc_status: body.acc_status
         }, {
             where: { id_accesorio: id }
         }).then(resultadoActualizar => {
@@ -121,13 +134,13 @@ app.put('/:id', (req, res) => {
             if (resultadoActualizar != 0) {
                 res.status(200).json({
                     ok: true,
-                    mensaje: 'Se actualizo correctamente el usuario',
+                    mensaje: 'Se actualizo correctamente el accesorio',
                     resultadoActualizar
                 });
             } else {
                 return res.status(500).json({
                     ok: false,
-                    mensaje: 'Error al actualizar el usuario',
+                    mensaje: 'Error al actualizar el accesorio',
 
                 });
 
@@ -137,7 +150,7 @@ app.put('/:id', (req, res) => {
         .catch(err => {
             return res.status(500).json({
                 ok: false,
-                mensaje: 'Error al actualizar el usuario',
+                mensaje: 'Error al actualizar el accesorio',
                 err
             });
         });

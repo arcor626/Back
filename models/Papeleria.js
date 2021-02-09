@@ -13,7 +13,7 @@ var Papeleria = db.define('papelerias', {
     pape_stock: { type: Sequelize.INTEGER, allowNull: true },
     fk_id_area: { type: Sequelize.INTEGER, allowNull: false },
     pape_comentarios: { type: Sequelize.STRING, allowNull: true },
-    pape_status: { type: Sequelize.STRING, allowNull: true },
+    pape_status: { type: Sequelize.BOOLEAN, allowNull: true }
 }, {
     timestamps: false
 

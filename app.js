@@ -34,6 +34,11 @@ var comunicacionRoute = require('./routes/comunicacion');
 var papeleriaRoute = require('./routes/papeleria');
 var limpiezaRoute = require('./routes/limpieza');
 var insumosRoute = require('./routes/insumos');
+var serviciosRoute = require('./routes/servicios');
+var provedorRoute = require('./routes/proveedor');
+var personalRoute = require('./routes/personal');
+var elementosRoute = require('./routes/elementos');
+var areasRoute = require('./routes/area');
 
 app.use('/login', loginRoute);
 app.use('/accesorios', accesoriosRoute);
@@ -43,6 +48,11 @@ app.use('/comunicacion', comunicacionRoute);
 app.use('/papeleria', papeleriaRoute);
 app.use('/limpieza', limpiezaRoute);
 app.use('/insumos', insumosRoute);
+app.use('/servicios', serviciosRoute);
+app.use('/proveedor', provedorRoute);
+app.use('/personal', personalRoute);
+app.use('/area', areasRoute);
+app.use('/elementos', elementosRoute);
 app.use('/', appRoutes);
 
 

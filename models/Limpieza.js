@@ -13,7 +13,7 @@ var Limpieza = db.define('limpiezas', {
     limp_stock: { type: Sequelize.INTEGER, allowNull: true },
     fk_id_area: { type: Sequelize.INTEGER, allowNull: false },
     limp_comentarios: { type: Sequelize.STRING, allowNull: true },
-    limp_status: { type: Sequelize.STRING, allowNull: true },
+    limp_status: { type: Sequelize.BOOLEAN, allowNull: true }
 }, {
     timestamps: false
 

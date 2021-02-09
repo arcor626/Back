@@ -13,7 +13,7 @@ var Insumo = db.define('insumos', {
     ins_stock: { type: Sequelize.INTEGER, allowNull: true },
     fk_id_area: { type: Sequelize.INTEGER, allowNull: false },
     ins_comentarios: { type: Sequelize.STRING, allowNull: true },
-    ins_status: { type: Sequelize.STRING, allowNull: true },
+    ins_status: { type: Sequelize.BOOLEAN, allowNull: true }
 }, {
     timestamps: false
 

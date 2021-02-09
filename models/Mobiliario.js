@@ -4,7 +4,7 @@ const db = require('../config/database');
 var Mobiliario = db.define('mobiliarios', {
 
     id_mobiliario: { type: Sequelize.STRING, primaryKey: true, allowNull: false },
-    fk_id_servicio: { type: Sequelize.INTEGER, allowNull: false },
+    fk_id_elemento: { type: Sequelize.INTEGER, allowNull: false },
     mob_especificaciones: { type: Sequelize.STRING, allowNull: true },
     fk_id_proveedor: { type: Sequelize.INTEGER, allowNull: true },
     fk_id_encargado: { type: Sequelize.INTEGER, allowNull: true },
@@ -12,6 +12,7 @@ var Mobiliario = db.define('mobiliarios', {
     mob_fecha_asignacion: { type: Sequelize.DATEONLY, allowNull: true },
     fk_id_area: { type: Sequelize.INTEGER, allowNull: false },
     mob_comentarios: { type: Sequelize.STRING, allowNull: true },
+    mob_status:{ type: Sequelize.BOOLEAN, allowNull: true }
 }, {
     timestamps: false
 
