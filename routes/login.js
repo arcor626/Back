@@ -30,9 +30,12 @@ app.post('/', (req, res) => {
 
         if (resultadoDeConsulta != null) {
             if (body.password == resultadoDeConsulta.dataValues.usuario_pasword) {
+                console.log(resultadoDeConsulta.dataValues);
                 res.status(200).json({
                     mensaje: 'Logeo completado, las credenciales son correctas',
-                    ok: 'true'
+                    ok: 'true',
+                    usuario: resultadoDeConsulta.dataValues,
+                    token: true
                 });
 
             } else {

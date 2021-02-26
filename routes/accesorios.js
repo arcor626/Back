@@ -9,19 +9,22 @@ app.post('/', (req, res) => {
 
     var body = req.body;
 
+    var proveedor = body.fk_id_proveedor == "0" ? null : body.fk_id_proveedor;
+    var encargado = body.fk_id_encargado == "0" ? null : body.fk_id_encargado;
+
 
     Accesorios.create({
         id_accesorio: body.id_accesorio,
         acc_num_serie: body.acc_num_serie,
-        fk_id_elemento: body.fk_id_servicio,
+        fk_id_servicio: body.fk_id_servicio,
         acc_especificaciones: body.acc_especificaciones,
-        fk_id_proveedor: body.fk_id_proveedor,
-        fk_id_encargado: body.fk_id_encargado,
+        fk_id_proveedor: proveedor,
+        fk_id_encargado: body.encargado,
         acc_fecha_compra: body.acc_fecha_compra,
         acc_fecha_asignacion: body.acc_fecha_asignacion,
         fk_id_area: body.fk_id_area,
         acc_comentarios: body.acc_comentarios,
-        acc_status: true
+        acc_status: 'Activo'
 
 
     }).then(resultado => {
@@ -31,10 +34,10 @@ app.post('/', (req, res) => {
         })
 
     }).catch(err => {
-        res.status(500).json({
+        res.status(400).json({
             ok: false,
             mensaje: 'Error al insertar el accesorio',
-            err
+            // err 
         });
     })
 });
@@ -79,6 +82,26 @@ app.get('/:id', (req, res) => {
 
 });
 
+// Regresa un accesorio en base a us parametros
+app.get('/buscar/:termino', (req, res) => {
+    var termino = req.params.termino;
+    db.query("SP_BUSCAR_ACCESORIO " + termino).then(resultado => {
+
+        res.status(200).json({
+            ok: true,
+            accesorio: resultado[0]
+        });
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'Error al obtener el accesorio',
+            err
+        });
+    });
+
+});
+
+
 app.delete('/:id', (req, res) => {
 
     var id = req.params.id;
@@ -118,7 +141,7 @@ app.put('/:id', (req, res) => {
 
     Accesorios.update({
             acc_num_serie: body.acc_num_serie,
-            fk_id_elemento: body.fk_id_servicio,
+            fk_id_servicio: body.fk_id_servicio,
             acc_especificaciones: body.acc_especificaciones,
             fk_id_proveedor: body.fk_id_proveedor,
             fk_id_encargado: body.fk_id_encargado,
@@ -127,6 +150,10 @@ app.put('/:id', (req, res) => {
             fk_id_area: body.fk_id_area,
             acc_comentarios: body.acc_comentarios,
             acc_status: body.acc_status
+
+
+
+
         }, {
             where: { id_accesorio: id }
         }).then(resultadoActualizar => {

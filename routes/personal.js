@@ -76,14 +76,40 @@ app.delete('/:id', (req, res) => {
 })
 
 
+
+
+// Regresa un accesorio en base a us parametros
+app.get('/buscar/:termino', (req, res) => {
+    var termino = req.params.termino;
+    db.query("SP_BUSCAR_PERSONAL " + termino).then(resultado => {
+
+        res.status(200).json({
+            ok: true,
+            personal: resultado[0]
+        });
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'Error al obtener el personal',
+            err
+        });
+    });
+
+});
+
 app.put('/:id', (req, res) => {
     var body = req.body;
 
     var id = req.params.id;
 
-    Accesorios.update({
+    console.log(body);
+    Personal.update({
             personal_nombre: body.personal_nombre,
             personal_apellidos: body.personal_apellidos
+
+
+
+
         }, {
             where: { id_personal: id }
         }).then(resultadoActualizar => {

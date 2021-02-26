@@ -39,6 +39,7 @@ var provedorRoute = require('./routes/proveedor');
 var personalRoute = require('./routes/personal');
 var elementosRoute = require('./routes/elementos');
 var areasRoute = require('./routes/area');
+var marcasRoute = require('./routes/marcas');
 
 app.use('/login', loginRoute);
 app.use('/accesorios', accesoriosRoute);
@@ -53,6 +54,7 @@ app.use('/proveedor', provedorRoute);
 app.use('/personal', personalRoute);
 app.use('/area', areasRoute);
 app.use('/elementos', elementosRoute);
+app.use('/marcas', marcasRoute);
 app.use('/', appRoutes);
 
 
